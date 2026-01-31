@@ -1,0 +1,16 @@
+Inicia los servicios:
+
+bash
+docker-compose up --build
+Esto construirá las imágenes y levantará:
+
+MongoDB en localhost:27017
+
+Backend en http://localhost:8000
+
+Frontend en http://localhost:5173
+
+Detener los servicios:
+
+bash
+docker-compose down

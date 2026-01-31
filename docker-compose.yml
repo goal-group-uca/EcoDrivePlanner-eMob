@@ -1,0 +1,51 @@
+services:
+  mongo:
+    image: mongo:6.0
+    volumes:
+      - mongo_data:/data/db
+      - ./mongodb/init:/docker-entrypoint-initdb.d:ro
+    environment:
+      MONGO_INITDB_DATABASE: rutas
+    ports:
+      - "27017:27017"
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongo
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+  mongo-express:
+    image: mongo-express:latest
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_MONGODB_DATABASE=rutas
+      - ME_CONFIG_BASICAUTH_USERNAME=admin
+      - ME_CONFIG_BASICAUTH_PASSWORD=password
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+      - ME_CONFIG_SITE_BASEURL=/
+    depends_on:
+      - mongo
+    restart: always
+
+volumes:
+  mongo_data:

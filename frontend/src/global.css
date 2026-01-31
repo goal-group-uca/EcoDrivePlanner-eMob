@@ -1,0 +1,15 @@
+@keyframes moveTruck {
+    0% { transform: translateX(-100px) rotate(-15deg); }
+    100% { transform: translateX(calc(100vw + 100px)) rotate(-15deg); }
+  }
+  
+  @keyframes moveCar {
+    0% { transform: translateX(100px) rotate(10deg); }
+    100% { transform: translateX(calc(-100vw - 100px)) rotate(10deg); }
+  }
+  
+  @keyframes moveBike {
+    0% { transform: translateY(-50px) rotate(5deg); }
+    50% { transform: translateY(50px) rotate(5deg); }
+    100% { transform: translateY(-50px) rotate(5deg); }
+}
